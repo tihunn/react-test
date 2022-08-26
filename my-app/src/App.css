@@ -1,0 +1,54 @@
+.main-app-wrapper {
+    display: grid;
+
+    grid-template-areas:
+  "header header"
+  "nav content";
+
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+}
+
+.App-logo {
+    height: 4vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    grid-area: header;
+    color: antiquewhite;
+    display: flex;
+    text-align: center;
+}
+
+.nav {
+    grid-area: nav;
+    background: lawngreen;
+}
+
+.content {
+    grid-area: content;
+    background: greenyellow;
+}
+
+.App-link {
+    color: #61dafb;
+    display: flex;
+    text-align: center;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
