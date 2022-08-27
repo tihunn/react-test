@@ -1,10 +1,11 @@
 import React from 'react';
+import s from './NavBar.module.css';
 
 const NavBar = () => {
     return <nav className="nav">
 
 
-        <div>
+        <div className={s.gavno}>
             profile
         </div>
         <div>
