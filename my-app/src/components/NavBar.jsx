@@ -1,26 +1,25 @@
 import React from 'react';
-import s from './NavBar.module.css';
+import css from './NavBar.module.css';
+import {Link} from "react-router-dom";
 
-const NavBar = () => {
+export default function NavBar () {
     return <nav className="nav">
 
 
-        <div className={s.gavno}>
-            profile
+        <div className={css.gavno}>
+            <Link to="/profile"> Profile</Link>
         </div>
         <div>
-            messages
+            <Link to="/dialog"> Dialog</Link>
         </div>
         <div>
-            news
+            <Link to="/news"> News</Link>
         </div>
         <div>
-            music
+            <Link to="/music"> Music</Link>
         </div>
         <div>
-            setting
+            <Link to="/setting"> Setting</Link>
         </div>
     </nav>
 }
-
-export default NavBar;

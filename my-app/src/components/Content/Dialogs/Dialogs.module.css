@@ -1,0 +1,15 @@
+.dialogs {
+    display: grid;
+
+    grid-template-areas: "choice message";
+    grid-template-columns: 2fr 10fr;
+
+}
+
+.messages {
+    grid-area: message;
+}
+
+.dialogueChoice {
+    grid-area: choice;
+}

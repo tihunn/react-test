@@ -10,7 +10,6 @@ function App() {
             <Header/>
             <NavBar/>
             <Content/>
-
         </div>
     );
 }
