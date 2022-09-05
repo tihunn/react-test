@@ -2,13 +2,12 @@ import React from 'react';
 import css from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Messages/Message";
-import state from "../../../state/state";
 
 
 export default function Dialogs(props) {
 
-    let dialogsElements = props.dialogsData.map(dialog => <Dialog name={dialog.name} id={dialog.id}/>)
-    let messagesElements = props.messagesData.map(message => <Message message={message.message}/>)
+    let dialogsElements = props.data.dialogsData.map(dialog => <Dialog name={dialog.name} id={dialog.id}/>)
+    let messagesElements = props.data.messagesData.map(message => <Message message={message.message}/>)
 
     let newMessageElement = React.createRef ();
     let addMessage = () => {
@@ -17,12 +16,13 @@ export default function Dialogs(props) {
         newMessageElement.current.value = '';
     }
     let updateTextInState = () => {
+        debugger
         let text = newMessageElement.current.value;
         props.onChange(text);
-        debugger;
     }
-    debugger
-    window.text = state;
+
+    window.text = props.state;
+    window.data = props.data;
 
     return <div className={css.dialogs}>
         <div className={css.dialogueChoice}>
@@ -32,7 +32,7 @@ export default function Dialogs(props) {
             {messagesElements}
             <textarea
                 ref={newMessageElement}
-                value={props.newTextMessage}
+                value={props.data.newTextMessage}
                 onChange={updateTextInState}
             />
             <button onClick={addMessage}>кнопка</button>

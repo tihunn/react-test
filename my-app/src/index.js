@@ -1,7 +1,22 @@
-import './index.css';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import {BrowserRouter} from "react-router-dom";import './index.css';
 import reportWebVitals from './reportWebVitals';
-import {renderEntireTree} from "./state/render";
-import state, {newMessagePush, onChange} from "./state/state";
+import {store} from "./state/state";
+import App from "./App";
 
-renderEntireTree(state, newMessagePush, onChange);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+let renderEntireTree = (store) => {
+
+    root.render(
+        <React.StrictMode>
+            <BrowserRouter>
+                <App store={store} />
+            </BrowserRouter>
+        </React.StrictMode>
+    );
+}
+
+renderEntireTree(store);
+store.subscribe(renderEntireTree);
 reportWebVitals();

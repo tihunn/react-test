@@ -5,17 +5,15 @@ import Dialog from "./Dialogs/Dialogs";
 
 const Content = (props) => {
 
-debugger
+
     return <div className="content">
         <Routes>
             <Route path="/profile/*" element={<Profile/>} />
             <Route path="/dialog/*" element={
                 <Dialog
-                    messagesData={props.data.messagesData}
-                    dialogsData={props.data.dialogsData}
-                    newTextMessage={props.data.newTextMessage}
-                    newMessagePush={props.newMessagePush}
-                    onChange={props.onChange}
+                    data={props.store.getState()}
+                    newMessagePush={props.store.newMessagePush.bind(props.store)}
+                    onChange={props.store.onChange.bind(props.store)}
                 />} />
         </Routes>
     </div>
