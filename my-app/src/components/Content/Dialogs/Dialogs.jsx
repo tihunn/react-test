@@ -12,13 +12,11 @@ export default function Dialogs(props) {
     let newMessageElement = React.createRef ();
     let addMessage = () => {
         let text = newMessageElement.current.value;
-        props.newMessagePush(text);
-        newMessageElement.current.value = '';
+        props.dispatch({type: "newMessagePush", newMessage: text});
     }
     let updateTextInState = () => {
-        debugger
         let text = newMessageElement.current.value;
-        props.onChange(text);
+        props.dispatch({ type: "onChange", enteredText: text})
     }
 
     window.text = props.state;

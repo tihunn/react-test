@@ -15,19 +15,30 @@ export let store = {
         newTextMessage: 'here something',
 
     },
-    newMessagePush(newMessage) {
-        this._state.messagesData.push({id: 4, message: newMessage});
-        this._renderEntireTree(this);
-    },
-    onChange(enteredText) {
-        this._state.newTextMessage = enteredText;
-        this._renderEntireTree(this);
-    },
+
     subscribe(observer) {
         this._renderEntireTree = observer;
     },
     getState(){
         return this._state;
+    },
+
+    _newMessagePush(newMessage) {
+        this._state.messagesData.push({id: 4, message: newMessage});
+        this._state.newTextMessage = "";
+        this._renderEntireTree(this);
+    },
+    _onChange(enteredText) {
+        this._state.newTextMessage = enteredText;
+        this._renderEntireTree(this);
+    },
+
+    dispatch(action) {
+        if (action.type === "newMessagePush") {
+            this._newMessagePush(action.newMessage)
+        } else if (action.type === "onChange") {
+            this._onChange(action.enteredText)
+        }
     }
 }
 

@@ -12,8 +12,7 @@ const Content = (props) => {
             <Route path="/dialog/*" element={
                 <Dialog
                     data={props.store.getState()}
-                    newMessagePush={props.store.newMessagePush.bind(props.store)}
-                    onChange={props.store.onChange.bind(props.store)}
+                    dispatch={props.store.dispatch.bind(props.store)}
                 />} />
         </Routes>
     </div>
