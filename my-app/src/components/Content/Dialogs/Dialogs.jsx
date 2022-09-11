@@ -2,11 +2,11 @@ import React from 'react';
 import css from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Messages/Message";
-import {addMessageCreator, updateTextInStateCreator} from "../../../store/store";
+import {addMessageCreator, onMessageChangeCreator} from "../../../store/dialogsPageReducer";
 
 
 export default function Dialogs(props) {
-
+debugger
     let dialogsElements = props.data.dialogsData.map(dialog => <Dialog name={dialog.name} id={dialog.id}/>)
     let messagesElements = props.data.messagesData.map(message => <Message message={message.message}/>)
 
@@ -17,7 +17,7 @@ export default function Dialogs(props) {
     }
     let updateTextInState = () => {
         let text = newMessageElement.current.value;
-        props.dispatch(updateTextInStateCreator(text))
+        props.dispatch(onMessageChangeCreator(text))
     }
 
     return <div className={css.dialogs}>

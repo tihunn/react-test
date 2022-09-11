@@ -1,6 +1,8 @@
+import {dialogsPageReducer} from "./dialogsPageReducer";
+import {postPageReducer} from "./postPageReducer";
+
 export let store = {
-    _renderEntireTree() {
-    }, _state: {
+    _state: {
         dialogPage: {
             messagesData: [
                 {id: 1, message: "hi"},
@@ -18,49 +20,16 @@ export let store = {
                 {id: 2, post: "this is Sparta!", likes: 0},
             ], textareaPost: "Entered text new post"
         }
-    }, _newMessagePush(newMessage) {
-        this._state.dialogPage.messagesData.push({id: 4, message: newMessage});
-        this._state.dialogPage.newTextMessage = "";
-        this._renderEntireTree(this);
-    }, _onChange(enteredText) {
-        this._state.dialogPage.newTextMessage = enteredText;
-        this._renderEntireTree(this);
-    }, _newPostPush() {
-        let statePost = this._state.profilePage.textareaPost;
-        this._state.profilePage.postData.push({id: 3, post: statePost, likes: 0});
-        this._state.profilePage.textareaPost = "";
-        this._renderEntireTree(this);
-    }, _updateTextareaPost(enteredText) {
-        this._state.profilePage.textareaPost = enteredText;
-        this._renderEntireTree(this);
+    }, _callSubscriber() {
     }, dispatch(action) {
-        if (action.type === "newMessagePush") {
-            this._newMessagePush(action.newMessage)
-        } else if (action.type === "onChange") {
-            this._onChange(action.enteredText)
-        } else if (action.type === "newPostPush") {
-            this._newPostPush()
-        } else if (action.type === "updateTextareaPost") {
-            this._updateTextareaPost(action.enteredText)
-        }
+        this._state.dialogPage = dialogsPageReducer(this._state.dialogPage, action);
+        this._state.profilePage = postPageReducer(this._state.profilePage, action);
+        this._callSubscriber(this);
     }, subscribe(observer) {
-        this._renderEntireTree = observer;
+        this._callSubscriber = observer;
     }, getState() {
         return this._state;
     },
 }
 
-export const updateTextInStateCreator = (enteredText) => ({type: "onChange", enteredText: enteredText});
-export const addMessageCreator = (enteredText) => ({type: "newMessagePush", newMessage: enteredText});
-export const updateTextareaPostCreator = (enteredText) => ({type: "updateTextareaPost", enteredText: enteredText});
-export const newPostPushCreator = () => ({type: "newPostPush"});
-
-
 window.store = store;
-
-
-
-
-
-
-

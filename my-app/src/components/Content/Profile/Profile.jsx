@@ -1,10 +1,7 @@
 import React from 'react';
-import Like from "../like.png";
 import css from "./Profile.module.css";
 import Post from "./Post/Post";
-import Dialog from "../Dialogs/Dialog/Dialog";
-import {newPostPushCreator, updateTextareaPostCreator} from "../../../store/store";
-
+import {newPostPushCreator, updateTextareaPostCreator} from "../../../store/postPageReducer";
 
 export default function Profile(props) {
 

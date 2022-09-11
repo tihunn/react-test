@@ -4,18 +4,17 @@ import {Route, Routes} from "react-router-dom";
 import Dialogs from "./Dialogs/Dialogs";
 
 const Content = (props) => {
-
-    let state = props.store.getState()
-
+debugger
+    window.state = props.state
     return <div className="content">
         <Routes>
             <Route path="/profile/*" element={<Profile
-                data={state.profilePage}
-                dispatch={props.store.dispatch.bind(props.store)}
+                data={props.state.profilePage}
+                dispatch={props.dispatch}
             />}/>
             <Route path="/dialog/*" element={<Dialogs
-                data={state.dialogPage}
-                dispatch={props.store.dispatch.bind(props.store)}
+                data={props.state.dialogsPage}
+                dispatch={props.dispatch}
             />}/>
         </Routes>
     </div>

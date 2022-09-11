@@ -10,7 +10,8 @@ function App(props) {
             <Header/>
             <NavBar/>
             <Content
-                store={props.store}
+                state={props.state}
+                dispatch = {props.dispatch}
                 />
         </div>
     );
