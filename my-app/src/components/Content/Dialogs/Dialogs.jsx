@@ -2,6 +2,7 @@ import React from 'react';
 import css from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Messages/Message";
+import {addMessageCreator, updateTextInStateCreator} from "../../../store/store";
 
 
 export default function Dialogs(props) {
@@ -12,15 +13,12 @@ export default function Dialogs(props) {
     let newMessageElement = React.createRef ();
     let addMessage = () => {
         let text = newMessageElement.current.value;
-        props.dispatch({type: "newMessagePush", newMessage: text});
+        props.dispatch(addMessageCreator(text));
     }
     let updateTextInState = () => {
         let text = newMessageElement.current.value;
-        props.dispatch({ type: "onChange", enteredText: text})
+        props.dispatch(updateTextInStateCreator(text))
     }
-
-    window.text = props.state;
-    window.data = props.data;
 
     return <div className={css.dialogs}>
         <div className={css.dialogueChoice}>
