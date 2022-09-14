@@ -8,13 +8,19 @@ let initialState = {
 export let postPageReducer = (state = initialState, action) => {
     switch (action.type) {
         case "newPostPush":
-            let statePost = state.textareaPost;
-            state.postData.push({id: 3, post: statePost, likes: 0});
-            state.textareaPost = "";
-            break;
+            let body = state.textareaPost;
+            window.state = state;
+            return {
+                ...state,
+                postData: [...state.postData, {id: 3, post: body, likes: 0} ],
+                textareaPost: "",
+        };
         case "updateTextareaPost":
-            state.textareaPost = action.enteredText;
-            break;
+            debugger
+            return {
+                ...state,
+                textareaPost: action.enteredText
+            };
     }
     return state;
 };

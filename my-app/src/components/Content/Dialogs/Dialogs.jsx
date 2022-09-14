@@ -2,22 +2,20 @@ import React from 'react';
 import css from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Messages/Message";
-import {addMessageCreator, onMessageChangeCreator} from "../../../store/dialogsPageReducer";
-
 
 export default function Dialogs(props) {
-debugger
-    let dialogsElements = props.data.dialogsData.map(dialog => <Dialog name={dialog.name} id={dialog.id}/>)
-    let messagesElements = props.data.messagesData.map(message => <Message message={message.message}/>)
+
+    let dialogsElements = props.stateDialogsPage.dialogsData.map(dialog => <Dialog name={dialog.name} id={dialog.id}/>)
+    let messagesElements = props.stateDialogsPage.messagesData.map(message => <Message message={message.message}/>)
 
     let newMessageElement = React.createRef ();
     let addMessage = () => {
         let text = newMessageElement.current.value;
-        props.dispatch(addMessageCreator(text));
+        props.addMessage(text);
     }
     let updateTextInState = () => {
         let text = newMessageElement.current.value;
-        props.dispatch(onMessageChangeCreator(text))
+        props.updateTextInState(text);
     }
 
     return <div className={css.dialogs}>
@@ -28,7 +26,7 @@ debugger
             {messagesElements}
             <textarea
                 ref={newMessageElement}
-                value={props.data.newTextMessage}
+                value={props.stateDialogsPage.newTextMessage}
                 onChange={updateTextInState}
             />
             <button onClick={addMessage}>кнопка</button>

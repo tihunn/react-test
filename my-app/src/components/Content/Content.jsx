@@ -1,21 +1,14 @@
 import React from 'react';
-import Profile from "./Profile/Profile";
 import {Route, Routes} from "react-router-dom";
-import Dialogs from "./Dialogs/Dialogs";
+import DialogsContainer from "./Dialogs/DialogsContainer";
+import ProfileContainer from "./Profile/ProfileContainer";
 
 const Content = (props) => {
-debugger
-    window.state = props.state
     return <div className="content">
         <Routes>
-            <Route path="/profile/*" element={<Profile
-                data={props.state.profilePage}
-                dispatch={props.dispatch}
-            />}/>
-            <Route path="/dialog/*" element={<Dialogs
-                data={props.state.dialogsPage}
-                dispatch={props.dispatch}
-            />}/>
+            <Route path="/profile/*" element={<ProfileContainer/>} />
+            <Route path="/dialog/*" element={<DialogsContainer/>} />
+            <Route path="/users/*" element={<UsersContener/>} />
         </Routes>
     </div>
 }

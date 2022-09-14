@@ -1,26 +1,23 @@
 import React from 'react';
 import css from "./Profile.module.css";
 import Post from "./Post/Post";
-import {newPostPushCreator, updateTextareaPostCreator} from "../../../store/postPageReducer";
 
 export default function Profile(props) {
 
+    let postElement = props.stateProfilePage.postData.map(dialog => <Post id={dialog.id} post={dialog.post}
+                                                                          likes={dialog.likes}/>)
+
     let onPostChange = (event) => {
         let body = event.target.value;
-        props.dispatch(updateTextareaPostCreator(body))
+        props.postChange(body);
     }
-    let pushPost = () => {
-        props.dispatch(newPostPushCreator())
-    }
-
-    let postElement = props.data.postData.map(dialog => <Post id={dialog.id} post={dialog.post} likes={dialog.likes}/>)
 
     return <div className={css.Profile}>
         {postElement}
         <textarea
-            value={props.data.textareaPost}
+            value={props.stateProfilePage.textareaPost}
             onChange={onPostChange}
         />
-        <button onClick={pushPost}>Post push</button>
+        <button onClick={props.pushPost}>Post push</button>
     </div>
 }
