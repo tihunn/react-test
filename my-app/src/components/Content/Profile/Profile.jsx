@@ -4,8 +4,10 @@ import Post from "./Post/Post";
 
 export default function Profile(props) {
 
-    let postElement = props.stateProfilePage.postData.map(dialog => <Post id={dialog.id} post={dialog.post}
-                                                                          likes={dialog.likes}/>)
+    let postElement = props.stateProfilePage.postData.map(post => <Post key={post.id}
+                                                                        id={post.id}
+                                                                        post={post.post}
+                                                                        likes={post.likes}/>)
 
     let onPostChange = (event) => {
         let body = event.target.value;

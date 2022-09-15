@@ -13,6 +13,9 @@ export default function NavBar () {
             <Link to="/dialog"> Dialog</Link>
         </div>
         <div>
+            <Link to="/users"> Users</Link>
+        </div>
+        <div>
             <Link to="/news"> News</Link>
         </div>
         <div>
