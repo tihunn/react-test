@@ -2,13 +2,14 @@ import React from "react";
 import Users from "./Users";
 import {connect} from "react-redux";
 import {
-    followingActionCreator, setSelectedPageActionCreator,
-    setTotalUsersCountActionCreator,
-    setUsersActionCreator,
-    unfollowingActionCreator
+    follow, setSelectedPage,
+    setTotalUsersCount,
+    setUsers, toggleIsFetching,
+    unfollow
 } from "../../../store/usersPageReducer";
 import axios from "axios";
 import css from "./Users.module.css";
+import Preload from "../../common/Preload/Preload";
 
 
 
@@ -18,7 +19,9 @@ class UsersApiContainer extends React.Component {
     }
 
     componentDidMount() {
+        this.props.toggleIsFetching(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.stateUsersPage.pageSize}&page=${this.props.stateUsersPage.selectedPage}`).then(response => {
+            this.props.toggleIsFetching(false);
             this.props.setUsers(response.data.items);
             this.props.setTotalUsersCount(response.data.totalCount);
         });
@@ -26,7 +29,9 @@ class UsersApiContainer extends React.Component {
 
     onPageChange(selectedPage) {
         this.props.setSelectedPage(selectedPage)
+        this.props.toggleIsFetching(true);
         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${selectedPage}`).then(response => {
+            this.props.toggleIsFetching(false);
             this.props.setUsers(response.data.items);
             this.props.setTotalUsersCount(response.data.totalCount);
         })
@@ -63,6 +68,7 @@ class UsersApiContainer extends React.Component {
 
     render() {
         return <div>
+            {this.props.stateUsersPage.isFetching ? <Preload/> : null}
             <Users pagination={this.pagination()} follow={this.props.follow} unfollow={this.props.unfollow} usersData={this.props.stateUsersPage.usersData}/>
         </div>
             }
@@ -74,15 +80,12 @@ let mapStateToProps = (state) => {
     }
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        follow: (id) => dispatch(followingActionCreator(id)),
-        unfollow: (id) => dispatch(unfollowingActionCreator(id)),
-        setUsers: (users) => dispatch(setUsersActionCreator(users)),
-        setTotalUsersCount: (totalUsersCount) => dispatch(setTotalUsersCountActionCreator(totalUsersCount)),
-        setSelectedPage: (selectedPage) => dispatch(setSelectedPageActionCreator(selectedPage))
-    }
-};
-
-export let UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersApiContainer);
+export let UsersContainer = connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setTotalUsersCount,
+    setSelectedPage,
+    toggleIsFetching,
+})(UsersApiContainer);
 
