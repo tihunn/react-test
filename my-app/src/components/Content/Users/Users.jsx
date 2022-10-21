@@ -1,30 +1,26 @@
 import React from "react";
 import User from "./User/User";
-import axios from "axios";
+import css from "./Users.module.css";
 
 
 export default class Users extends React.Component {
-    componentDidMount() {
-        axios.get("https://social-network.samuraijs.com/api/1.0/users").then(response => {
-            this.props.setUsers(response.data.items)
-        });
+    constructor(props) {
+        super(props);
     }
-    
 
-    elementUser = () => this.props.stateUsersPage.usersData.map(user => <User key={user.id}
-                                                                              id={user.id}
-                                                                              firstName={user.name}
-                                                                              ava={user.photos.small}
-                                                                              followed={user.followed}
-                                                                              follow={this.props.follow}
-                                                                              unfollow={this.props.unfollow}
+    elementUser = () => this.props.usersData.map(user => <User key={user.id}
+                                                               id={user.id}
+                                                               firstName={user.name}
+                                                               ava={user.photos.small}
+                                                               followed={user.followed}
+                                                               follow={this.props.follow}
+                                                               unfollow={this.props.unfollow}
     />);
 
     render() {
         return <div>
-
+            {this.props.pagination}
             {this.elementUser()}
         </div>
     }
 };
-
