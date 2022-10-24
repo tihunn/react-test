@@ -1,6 +1,6 @@
 import React from "react";
 import css from "./User.module.css";
-import defaultAva from "../../Ava.png";
+import defaultAva from "../../../common/Ava.png";
 
 export default function Users(props) {
 

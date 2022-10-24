@@ -1,6 +1,6 @@
 import React from 'react';
 import css from "./Dialog.module.css";
-import ava from "../../Ava.png";
+import ava from "../../../common/Ava.png";
 import {Link} from "react-router-dom";
 
 export default function Dialog(props) {

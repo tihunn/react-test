@@ -1,0 +1,11 @@
+.Posts {
+    color: #282c34;
+    display: inline-block;
+}
+
+.likeImg {
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+}
+

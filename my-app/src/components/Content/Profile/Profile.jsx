@@ -1,25 +1,22 @@
 import React from 'react';
+import ava from "../../common/Ava.png";
 import css from "./Profile.module.css";
-import Post from "./Post/Post";
 
 export default function Profile(props) {
+    debugger;
+    return <div className={css.profile} >
+        <div >
+            <img src={props.profileData.photos.large != null  ? props.profileData.photos.large : ava}
+                 className={css.ava}/>
+        </div>
+        <div >
 
-    let postElement = props.stateProfilePage.postData.map(post => <Post key={post.id}
-                                                                        id={post.id}
-                                                                        post={post.post}
-                                                                        likes={post.likes}/>)
+            <h1> {props.profileData.fullName} </h1>
+            {props.profileData.aboutMe} <br/>
+            {props.profileData.contacts.vk} <br/>
+            Работа: {props.profileData.lookingForAJobDescription}
+                </div>
 
-    let onPostChange = (event) => {
-        let body = event.target.value;
-        props.postChange(body);
-    }
 
-    return <div className={css.Profile}>
-        {postElement}
-        <textarea
-            value={props.stateProfilePage.textareaPost}
-            onChange={onPostChange}
-        />
-        <button onClick={props.pushPost}>Post push</button>
     </div>
 }
