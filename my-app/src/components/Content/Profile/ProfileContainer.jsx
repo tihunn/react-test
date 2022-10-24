@@ -9,11 +9,15 @@ import Posts from "./Posts";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import axios from "axios";
+import {useParams, useLocation, useNavigate} from "react-router-dom";
+import Preload from "../../common/Preload/Preload";
 
-class ProfileApiContainer extends React.Component {
+class ProfileContainer extends React.Component {
     componentDidMount() {
+        let userId = this.props.router.params.userId
+        if (!userId) {userId = 2}
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0//profile/2`).then( response => {
+        axios.get(`https://social-network.samuraijs.com/api/1.0//profile/` + userId).then( response => {
             this.props.toggleIsFetching(false);
             this.props.setProfile(response.data)
         })
@@ -21,6 +25,7 @@ class ProfileApiContainer extends React.Component {
     }
     render() {
         return <>
+            {this.props.preloader.isFetching ? <Preload/> : null}
             <Profile profileData = {this.props.stateProfilePage.profileData}/>
             <Posts stateProfilePage={this.props.stateProfilePage}
                    pushPost={this.props.pushPost}
@@ -29,17 +34,32 @@ class ProfileApiContainer extends React.Component {
     }
 }
 
-
-let mapStateToProps = (state) => {
-    return {stateProfilePage: state.profilePage}
+function withRouter(Component) {
+    return function ComponentWithRouterProp(props) {
+        let location = useLocation();
+        let navigate = useNavigate();
+        let params = useParams();
+        return (
+            <Component
+                {...props}
+                router={{ location, navigate, params }}
+            />
+        );
+    }
 }
 
+let mapStateToProps = (state) => {
+    return {stateProfilePage: state.profilePage,
+        preloader: state.preloader
+    }
+}
 
+let WithUrlProfileContainer = withRouter(ProfileContainer)
 
-const ProfileContainer = connect(mapStateToProps, {
+export default connect(mapStateToProps, {
     pushPost,
     updateTextareaPost,
     setProfile,
     toggleIsFetching,
-})(ProfileApiContainer);
-export default ProfileContainer;
+
+})(WithUrlProfileContainer);

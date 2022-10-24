@@ -3,7 +3,7 @@ import ava from "../../common/Ava.png";
 import css from "./Profile.module.css";
 
 export default function Profile(props) {
-    debugger;
+
     return <div className={css.profile} >
         <div >
             <img src={props.profileData.photos.large != null  ? props.profileData.photos.large : ava}

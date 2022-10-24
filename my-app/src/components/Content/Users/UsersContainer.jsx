@@ -13,7 +13,7 @@ import Preload from "../../common/Preload/Preload";
 
 
 
-class UsersApiContainer extends React.Component {
+class UsersContainer extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -80,12 +80,12 @@ let mapStateToProps = (state) => {
     }
 };
 
-export let UsersContainer = connect(mapStateToProps, {
+export default connect(mapStateToProps, {
     follow,
     unfollow,
     setUsers,
     setTotalUsersCount,
     setSelectedPage,
     toggleIsFetching,
-})(UsersApiContainer);
+})(UsersContainer);
 
