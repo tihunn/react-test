@@ -1,6 +1,6 @@
 let initialState = {
     usersData: [],
-    totalUsersCount: 0,
+    totalUsersCount: 1,
     selectedPage: 1,
     pageSize: 10,
     isFetching: false,

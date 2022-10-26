@@ -9,7 +9,6 @@ export default class Users extends React.Component {
     }
 
     elementUser = () => this.props.usersData.map(user => {
-        debugger;
         return <User key={user.id}
               id={user.id}
               name={user.name}

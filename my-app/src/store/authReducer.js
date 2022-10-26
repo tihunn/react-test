@@ -8,7 +8,6 @@ let initialState = {
 };
 
 export let authReducer = (state = initialState, action) => {
-    debugger
     switch (action.type) {
         case "setAuthData":
             return {

@@ -1,7 +1,7 @@
 import './App.css';
-import NavBar from "./components/NavBar";
-import Content from "./components/Content/Content";
-import HeaderContainer from "./components/header/HeaderContainer";
+import NavBar from "../components/NavBar/NavBar";
+import Content from "../components/Content/Content";
+import HeaderContainer from "../components/Header/HeaderContainer";
 
 function App(props) {
 

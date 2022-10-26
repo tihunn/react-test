@@ -13,10 +13,10 @@ export default function User(props) {
             {props.followed ?
                 <button onClick={() => {
                     props.unfollow(props.id)
-                }}>follow</button> :
+                }}>unfollow</button> :
                 <button onClick={() => {
                     props.follow(props.id)
-                }}>unfollow</button>
+                }}>follow</button>
             }
         </div>
     </div>
