@@ -1,5 +1,5 @@
 import React from 'react';
-import ava from "../../common/Ava.png";
+import ava from "../../common/defaultAva.png";
 import css from "./Profile.module.css";
 
 export default function Profile(props) {

@@ -1,0 +1,16 @@
+.ava {
+    height: 50px;
+    width: 50px;
+    float: left;
+}
+.user {
+    display: inline-block;
+    margin: 5px;
+}
+
+.name {
+    margin-top: 13px;
+    display: inline-block;
+    margin-left: 15px;
+    margin-right: 15px;
+}

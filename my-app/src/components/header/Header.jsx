@@ -1,8 +1,11 @@
 import React from 'react';
-import logo from "../logo.svg";
+import logo from "../../logo.svg";
 import s from './Header.module.css';
+import css from "./Header.module.css";
+import AuthContainer from "./Auth/AuthContainer";
 
 const Header = () => {
+
     return <header className={s.App_header}>
         <img src={logo} className={s.App_logo} alt="logo"/>
         <p>
@@ -17,7 +20,9 @@ const Header = () => {
         >
             Learn React
         </a>
-
+        <div className={css.auth}>
+            <AuthContainer/>
+        </div>
     </header>
 }
 

@@ -8,14 +8,18 @@ export default class Users extends React.Component {
         super(props);
     }
 
-    elementUser = () => this.props.usersData.map(user => <User key={user.id}
-                                                               id={user.id}
-                                                               firstName={user.name}
-                                                               ava={user.photos.small}
-                                                               followed={user.followed}
-                                                               follow={this.props.follow}
-                                                               unfollow={this.props.unfollow}
-    />);
+    elementUser = () => this.props.usersData.map(user => {
+        debugger;
+        return <User key={user.id}
+              id={user.id}
+              name={user.name}
+              ava={user.photos.small}
+              followed={user.followed}
+              follow={this.props.follow}
+              unfollow={this.props.unfollow}
+        />
+
+    });
 
     render() {
         return <div>

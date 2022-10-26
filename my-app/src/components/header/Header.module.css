@@ -34,3 +34,10 @@
         animation: App-logo-spin infinite 20s linear;
     }
 }
+
+.auth {
+    position: absolute;
+    right: 0;
+}
+
+header a {color: #61dafb}
