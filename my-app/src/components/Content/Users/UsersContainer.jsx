@@ -4,9 +4,9 @@ import {connect} from "react-redux";
 import {
     follow, setSelectedPage, setTotalUsersCount, setUsers, toggleIsFetching, unfollow
 } from "../../../store/usersPageReducer";
-import axios from "axios";
 import css from "./Users.module.css";
 import Preload from "../../common/Preload/Preload";
+import {usersAPI} from "../../../DAL/api";
 
 
 class UsersContainer extends React.Component {
@@ -16,65 +16,66 @@ class UsersContainer extends React.Component {
 
     componentDidMount() {
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.stateUsersPage.pageSize}&page=${this.props.stateUsersPage.selectedPage}`,
-            {withCredentials: true}).then(response => {
+        usersAPI.getUsers(this.props.stateUsersPage.selectedPage, this.props.stateUsersPage.pageSize).then(data => {
             this.props.toggleIsFetching(false);
-            this.props.setUsers(response.data.items);
-            this.props.setTotalUsersCount(response.data.totalCount);
+            this.props.setUsers(data.items);
+            this.props.setTotalUsersCount(data.totalCount);
         });
     }
 
     follow = (userId) => {
         this.props.toggleIsFetching(true);
-        axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {}, {
-            withCredentials: true,
-            headers: {"API-KEY": "8d5a188f-d975-4b0c-8986-ccb6a4319e52"}
-        }).then(response => {
+        usersAPI.follow(userId).then(response => {
             this.props.toggleIsFetching(false);
-            if (response.data.resultCode === 0) {this.props.follow(userId);}
+            if (response.data.resultCode === 0) {
+                this.props.follow(userId);
+            }
         });
     }
 
     unfollow = (userId) => {
         this.props.toggleIsFetching(true);
-        axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`, {
-            withCredentials: true,
-            headers: {"API-KEY": "8d5a188f-d975-4b0c-8986-ccb6a4319e52"}
-        }).then(response => {
+        usersAPI.unfollow(userId).then(response => {
             this.props.toggleIsFetching(false);
-            if (response.data.resultCode === 0) {this.props.unfollow(userId);};
+            if (response.data.resultCode === 0) {
+                this.props.unfollow(userId);
+            }
+            ;
         });
     }
 
     onPageChange = (selectedPage) => {
         this.props.setSelectedPage(selectedPage)
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${selectedPage}`,
-        {withCredentials: true}).then(response => {
+        usersAPI.getUsers(selectedPage).then(data => {
             this.props.toggleIsFetching(false);
-            this.props.setUsers(response.data.items);
-            this.props.setTotalUsersCount(response.data.totalCount);
+            this.props.setUsers(data.items);
+            this.props.setTotalUsersCount(data.totalCount);
         })
     }
 
     pagination = () => {
-        let countPage = [];
+        let countPage = [1];
         let maxCountPage = this.props.stateUsersPage.totalUsersCount / this.props.stateUsersPage.pageSize;
         maxCountPage = Math.ceil(maxCountPage);
 
         if (this.props.stateUsersPage.selectedPage >= maxCountPage - 3) {
-            for (let i = 4; i > 0; i--) {
+            for (let i = 5; i > 0; i--) {
                 countPage.push((maxCountPage - i))
             }
         } else if (this.props.stateUsersPage.selectedPage > 3) {
-            countPage = [this.props.stateUsersPage.selectedPage - 2, this.props.stateUsersPage.selectedPage - 1, this.props.stateUsersPage.selectedPage, this.props.stateUsersPage.selectedPage + 1, this.props.stateUsersPage.selectedPage + 2]
+            countPage = [1,
+                this.props.stateUsersPage.selectedPage - 2,
+                this.props.stateUsersPage.selectedPage - 1,
+                this.props.stateUsersPage.selectedPage,
+                this.props.stateUsersPage.selectedPage + 1,
+                this.props.stateUsersPage.selectedPage + 2]
         } else {
-            for (let i = 1; i < 6; i++) {
+            for (let i = 2; i < 7; i++) {
                 countPage.push(i)
             }
         }
         countPage.push(maxCountPage);
-
         return countPage.map(count => <span
             className={this.props.stateUsersPage.selectedPage === count && css.selectedPage}
             onClick={() => {
