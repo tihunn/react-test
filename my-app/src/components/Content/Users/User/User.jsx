@@ -11,12 +11,16 @@ export default function User(props) {
         </NavLink>
         <div>
             {props.followed ?
-                <button onClick={() => {
-                    props.unfollow(props.id)
-                }}>unfollow</button> :
-                <button onClick={() => {
-                    props.follow(props.id)
-                }}>follow</button>
+                <button
+                    disabled={props.isDisabled.some(id => id === props.id)}
+                    onClick={() => {
+                        props.unfollow(props.id)
+                    }}>unfollow</button> :
+                <button
+                    disabled={props.isDisabled.some(id => id === props.id)}
+                    onClick={() => {
+                        props.follow(props.id)
+                    }}>follow</button>
             }
         </div>
     </div>

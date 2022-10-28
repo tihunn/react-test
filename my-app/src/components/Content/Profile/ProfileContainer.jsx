@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
     pushPost,
     setProfile,
@@ -8,18 +8,18 @@ import {toggleIsFetching,} from  "../../../store/preloaderReducer";
 import Posts from "./Posts";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import axios from "axios";
 import {useParams, useLocation, useNavigate} from "react-router-dom";
 import Preload from "../../common/Preload/Preload";
+import {profileAPI} from "../../../DAL/api";
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
         let userId = this.props.router.params.userId
         if (!userId) {userId = 2}
         this.props.toggleIsFetching(true);
-        axios.get(`https://social-network.samuraijs.com/api/1.0//profile/` + userId).then( response => {
+        profileAPI.getProfile(userId).then( data => {
             this.props.toggleIsFetching(false);
-            this.props.setProfile(response.data)
+            this.props.setProfile(data)
         })
 
     }

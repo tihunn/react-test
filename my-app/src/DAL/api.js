@@ -21,3 +21,22 @@ export const usersAPI = {
         return instance.post(`follow/${userId}`)
     },
 }
+
+export const profileAPI = {
+    getProfile(userId = 2) {
+        return instance.get(`profile/${userId}`).then(response => {
+            return response.data
+        })
+    }
+}
+
+export const authAPI = {
+    isAuth() {
+        return instance.get("auth/me").then(response => {
+            return response.data
+        })
+    },
+    getAvaAndName(userId) {
+        return instance.get(`profile/${userId}`)
+    }
+}

@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import logo from "./logo.svg";
-import s from './Header.module.css';
+import s from "./Header.module.css";
 import css from "./Header.module.css";
 import AuthContainer from "./Auth/AuthContainer";
 

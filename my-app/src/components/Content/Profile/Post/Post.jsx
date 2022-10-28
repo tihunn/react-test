@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Like from "../../../common/like.png";
 import css from "./Post.module.css";
 import ava from "../../../common/defaultAva.png";

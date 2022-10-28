@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import css from "./Message.module.css";
 import ava from "../../../common/defaultAva.png";
 

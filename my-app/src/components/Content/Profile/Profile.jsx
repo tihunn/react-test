@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import ava from "../../common/defaultAva.png";
 import css from "./Profile.module.css";
 

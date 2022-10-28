@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {Route, Routes} from "react-router-dom";
 import DialogsContainer from "./Dialogs/DialogsContainer";
 import ProfileContainer from "./Profile/ProfileContainer";

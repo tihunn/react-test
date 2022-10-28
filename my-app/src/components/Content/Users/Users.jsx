@@ -1,6 +1,6 @@
 import React from "react";
 import User from "./User/User";
-import css from "./Users.module.css";
+import PaginationContainer from "./Pagination/PaginationContainer";
 
 
 export default class Users extends React.Component {
@@ -10,19 +10,20 @@ export default class Users extends React.Component {
 
     elementUser = () => this.props.usersData.map(user => {
         return <User key={user.id}
-              id={user.id}
-              name={user.name}
-              ava={user.photos.small}
-              followed={user.followed}
-              follow={this.props.follow}
-              unfollow={this.props.unfollow}
+                     id={user.id}
+                     name={user.name}
+                     ava={user.photos.small}
+                     followed={user.followed}
+                     follow={this.props.follow}
+                     unfollow={this.props.unfollow}
+                     isDisabled={this.props.isDisabled}
         />
 
     });
 
     render() {
         return <div>
-            {this.props.pagination}
+            <PaginationContainer/>
             {this.elementUser()}
         </div>
     }
