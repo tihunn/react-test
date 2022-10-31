@@ -1,9 +1,8 @@
 import React from "react";
 import {connect} from "react-redux";
 import {
-     setSelectedPage, setTotalUsersCount, setUsers, toggleIsFetching,
+    getUsers,
 } from "../../../../store/usersPageReducer";
-import {usersAPI} from "../../../../DAL/api";
 import Pagination from "./Pagination";
 
 
@@ -12,22 +11,12 @@ class PaginationContainer extends React.Component {
         super(props);
     }
 
-    onPageChange = (selectedPage) => {
-        this.props.setSelectedPage(selectedPage)
-        this.props.toggleIsFetching(true);
-        usersAPI.getUsers(selectedPage).then(data => {
-            this.props.toggleIsFetching(false);
-            this.props.setUsers(data.items);
-            this.props.setTotalUsersCount(data.totalCount);
-        })
-    }
-
     render() {
         return <div>
             <Pagination totalUsersCount={this.props.stateUsersPage.totalUsersCount}
                         pageSize={this.props.stateUsersPage.pageSize}
                         selectedPage={this.props.stateUsersPage.selectedPage}
-                        onPageChange={this.onPageChange}
+                        getUsers={this.props.getUsers}
             />
         </div>
     }
@@ -40,6 +29,6 @@ let mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-     setUsers, setTotalUsersCount, setSelectedPage, toggleIsFetching,
+    getUsers
 })(PaginationContainer);
 

@@ -1,3 +1,6 @@
+import {profileAPI} from "../DAL/api";
+import {toggleIsFetching} from "./preloaderReducer";
+
 let initialState = {
     postData: [
         {id: 1, post: "it's new post", likes: 7},
@@ -38,4 +41,13 @@ export let profilePageReducer = (state = initialState, action) => {
 
 export const updateTextareaPost = (enteredText) => ({type: "updateTextareaPost", enteredText: enteredText});
 export const pushPost = () => ({type: "newPostPush"});
-export const setProfile = (profile) => ({type: "setProfile", profile: profile});
+const setProfile = (profile) => ({type: "setProfile", profile: profile});
+
+export const getProfile = (userId) => (dispatch) => {
+    debugger
+    dispatch( toggleIsFetching(true) );
+    profileAPI.getProfile(userId).then(data => {
+        dispatch( toggleIsFetching(false) );
+        dispatch( setProfile(data) );
+    })
+}

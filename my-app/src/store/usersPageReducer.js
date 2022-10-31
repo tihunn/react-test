@@ -1,3 +1,5 @@
+import {usersAPI} from "../DAL/api";
+
 let initialState = {
     usersData: [],
     totalUsersCount: 1,
@@ -60,10 +62,44 @@ export let usersPageReducer = (state = initialState, action) => {
     return state
 }
 
-export const follow = (id) => ({type: "follow", userId: id})
-export const unfollow = (id) => ({type: "unfollow", userId: id})
-export const setUsers = (users) => ({type: "setUsers", users: users})
-export const setTotalUsersCount = (totalUsersCount) => ({type: "setTotalUsersCount", totalUsersCount: totalUsersCount})
-export const setSelectedPage = (selectedPage) => ({type: "setSelectedPage", selectedPage: selectedPage})
-export const toggleIsFetching = (isFetching) => ({type: "toggleIsFetching", isFetching: isFetching})
-export const toggleIsDisabled = (isDisabled, userId) => ({type: "toggleDisabled", isDisabled, userId})
+const followSuccess = (id) => ({type: "follow", userId: id})
+const unfollowSuccess = (id) => ({type: "unfollow", userId: id})
+const setUsers = (users) => ({type: "setUsers", users: users})
+const setTotalUsersCount = (totalUsersCount) => ({type: "setTotalUsersCount", totalUsersCount: totalUsersCount})
+const setSelectedPage = (selectedPage) => ({type: "setSelectedPage", selectedPage: selectedPage})
+const toggleIsFetching = (isFetching) => ({type: "toggleIsFetching", isFetching: isFetching})
+const toggleIsDisabled = (isDisabled, userId) => ({type: "toggleDisabled", isDisabled, userId})
+
+export const follow = (userId) => (dispatch) => {
+    dispatch( toggleIsFetching(true) );
+    dispatch( toggleIsDisabled(true, userId) );
+    usersAPI.follow(userId).then(response => {
+        dispatch( toggleIsFetching(false) );
+        dispatch( toggleIsDisabled(false, userId) );
+        if (response.data.resultCode === 0) {
+            dispatch( followSuccess(userId) );
+        }
+    });
+}
+
+export const unfollow = (userId) => (dispatch) => {
+    dispatch( toggleIsFetching(true) );
+    dispatch( toggleIsDisabled(true, userId) );
+    usersAPI.unfollow(userId).then(response => {
+        dispatch( toggleIsFetching(false) );
+        dispatch( toggleIsDisabled(false, userId) );
+        if (response.data.resultCode === 0) {
+            dispatch( unfollowSuccess(userId) );
+        }
+    });
+}
+
+export const getUsers = (selectedPage, pageSize) => (dispatch) => {
+    dispatch( setSelectedPage(selectedPage) );
+    dispatch( toggleIsFetching(true) );
+    usersAPI.getUsers(selectedPage, pageSize).then(data => {
+        dispatch( toggleIsFetching(false) );
+        dispatch( setUsers(data.items) );
+        dispatch( setTotalUsersCount(data.totalCount) );
+    });
+}

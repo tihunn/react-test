@@ -1,5 +1,6 @@
 import React from "react";
 import css from "./Pagination.module.css";
+import {getUsers} from "../../../../store/usersPageReducer";
 
 export default function Pagination(props) {
     const pagination = () => {
@@ -26,7 +27,7 @@ export default function Pagination(props) {
         return countPage.map(count => <span
             className={props.selectedPage === count ? css.selectedPage : css.simplePage}
             onClick={() => {
-                props.onPageChange(count)
+                props.getUsers(count)
             }}> {count} </span>)
     }
 

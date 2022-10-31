@@ -1,27 +1,22 @@
 import React from "react";
 import {
+    getProfile,
     pushPost,
-    setProfile,
     updateTextareaPost,
 } from "../../../store/profilePageReducer";
-import {toggleIsFetching,} from  "../../../store/preloaderReducer";
 import Posts from "./Posts";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {useParams, useLocation, useNavigate} from "react-router-dom";
 import Preload from "../../common/Preload/Preload";
-import {profileAPI} from "../../../DAL/api";
+
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
+        debugger
         let userId = this.props.router.params.userId
         if (!userId) {userId = 2}
-        this.props.toggleIsFetching(true);
-        profileAPI.getProfile(userId).then( data => {
-            this.props.toggleIsFetching(false);
-            this.props.setProfile(data)
-        })
-
+        this.props.getProfile(userId)
     }
     render() {
         return <>
@@ -59,7 +54,5 @@ let WithUrlProfileContainer = withRouter(ProfileContainer)
 export default connect(mapStateToProps, {
     pushPost,
     updateTextareaPost,
-    setProfile,
-    toggleIsFetching,
-
+    getProfile,
 })(WithUrlProfileContainer);

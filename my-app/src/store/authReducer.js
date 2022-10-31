@@ -1,3 +1,5 @@
+import {authAPI} from "../DAL/api";
+
 let initialState = {
     data: {
         id: 2,
@@ -22,10 +24,20 @@ export let authReducer = (state = initialState, action) => {
                 ava: action.avaAndName.ava,
                 name: action.avaAndName.name
             }
-
     }
     return state
 }
 
-export const setAuthData = (authData) => ({type: "setAuthData", authData: authData});
-export const setAvaAndName = (ava, name) => ({ type: "setAvaAndName", avaAndName: {ava, name} });
+const setAuthData = (authData) => ({type: "setAuthData", authData: authData});
+const setAvaAndName = (ava, name) => ({ type: "setAvaAndName", avaAndName: {ava, name} });
+
+export const getAuthData = () => (dispatch) => {
+    authAPI.isAuth().then(data => {
+        dispatch( setAuthData(data.data) );
+        if (data.resultCode === 0) {
+            authAPI.getAvaAndName(data.data.id).then(response => {
+                dispatch( setAvaAndName(response.data.photos.small, response.data.fullName) );
+            })
+        }
+    })
+}
