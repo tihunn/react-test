@@ -7,18 +7,20 @@ import {
 import Posts from "./Posts";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {useParams, useLocation, useNavigate} from "react-router-dom";
+import {useParams, useLocation, useNavigate, Navigate} from "react-router-dom";
 import Preload from "../../common/Preload/Preload";
 
 
 class ProfileContainer extends React.Component {
     componentDidMount() {
-        debugger
-        let userId = this.props.router.params.userId
-        if (!userId) {userId = 2}
-        this.props.getProfile(userId)
+        let userId = this.props.router.params.userId;
+        if (!userId) {userId = this.props.yourId};
+        if (userId) {this.props.getProfile(userId)};
+
     }
+
     render() {
+        if (!this.props.isAuth) { return <Navigate to={"/login"}/> }
         return <>
             {this.props.preloader.isFetching ? <Preload/> : null}
             <Profile profileData = {this.props.stateProfilePage.profileData}/>
@@ -44,8 +46,11 @@ function withRouter(Component) {
 }
 
 let mapStateToProps = (state) => {
-    return {stateProfilePage: state.profilePage,
-        preloader: state.preloader
+    return {
+        stateProfilePage: state.profilePage,
+        preloader: state.preloader,
+        yourId: state.auth.data.id,
+        isAuth: state.auth.isAuth
     }
 }
 

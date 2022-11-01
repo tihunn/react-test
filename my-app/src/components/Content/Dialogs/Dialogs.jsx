@@ -2,6 +2,7 @@ import React from "react";
 import css from "./Dialogs.module.css";
 import Dialog from "./Dialog/Dialog";
 import Message from "./Messages/Message";
+import {Navigate} from "react-router-dom";
 
 export default function Dialogs(props) {
 
@@ -18,6 +19,7 @@ export default function Dialogs(props) {
         props.updateTextInState(text);
     }
 
+    if (!props.isAuth) { return <Navigate to={"/login"}/> }
     return <div className={css.dialogs}>
         <div className={css.dialogueChoice}>
                 {dialogsElements}

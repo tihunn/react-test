@@ -1,9 +1,7 @@
 import {authAPI} from "../DAL/api";
 
 let initialState = {
-    data: {
-        id: 2,
-    },
+    data: {},
     isAuth: false,
     ava: null,
     name: "not authorized"
@@ -33,8 +31,8 @@ const setAvaAndName = (ava, name) => ({ type: "setAvaAndName", avaAndName: {ava,
 
 export const getAuthData = () => (dispatch) => {
     authAPI.isAuth().then(data => {
-        dispatch( setAuthData(data.data) );
         if (data.resultCode === 0) {
+        dispatch( setAuthData(data.data) );
             authAPI.getAvaAndName(data.data.id).then(response => {
                 dispatch( setAvaAndName(response.data.photos.small, response.data.fullName) );
             })

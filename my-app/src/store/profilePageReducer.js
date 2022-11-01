@@ -44,7 +44,6 @@ export const pushPost = () => ({type: "newPostPush"});
 const setProfile = (profile) => ({type: "setProfile", profile: profile});
 
 export const getProfile = (userId) => (dispatch) => {
-    debugger
     dispatch( toggleIsFetching(true) );
     profileAPI.getProfile(userId).then(data => {
         dispatch( toggleIsFetching(false) );
