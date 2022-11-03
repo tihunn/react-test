@@ -19,7 +19,7 @@ export default function Dialogs(props) {
         props.updateTextInState(text);
     }
 
-    if (!props.isAuth) { return <Navigate to={"/login"}/> }
+
     return <div className={css.dialogs}>
         <div className={css.dialogueChoice}>
                 {dialogsElements}

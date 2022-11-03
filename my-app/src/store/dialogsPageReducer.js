@@ -27,5 +27,5 @@ export let dialogsPageReducer = (state = initialState, action) => {
     }
     return state
 }
-export const onMessageChangeCreator = (enteredText) => ({type: "onChange", enteredText: enteredText});
-export const addMessageCreator = (enteredText) => ({type: "newMessagePush", newMessage: enteredText});
+export const onMessageChange = (enteredText) => ({type: "onChange", enteredText: enteredText});
+export const addMessage = (enteredText) => ({type: "newMessagePush", newMessage: enteredText});
