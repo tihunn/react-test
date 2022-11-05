@@ -1,6 +1,7 @@
 import React from "react";
 import ava from "../../common/defaultAva.png";
 import css from "./Profile.module.css";
+import StatusContainer from "./StatusContainer";
 
 export default function Profile(props) {
 
@@ -12,6 +13,7 @@ export default function Profile(props) {
         <div >
 
             <h1> {props.profileData.fullName} </h1>
+            <StatusContainer/>
             {props.profileData.aboutMe} <br/>
             {props.profileData.contacts.vk} <br/>
             Работа: {props.profileData.lookingForAJobDescription}

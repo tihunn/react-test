@@ -1,14 +1,14 @@
 import React from "react";
 import {
-    getProfile, pushPost, updateTextareaPost,
+    getProfile, getStatus, pushPost, updateTextareaPost,
 } from "../../../store/profilePageReducer";
 import Posts from "./Posts";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {useParams, useLocation, useNavigate} from "react-router-dom";
 import Preload from "../../common/Preload/Preload";
 import WithAuthRedirect from "../../hoc/WithAuthRedirect";
 import {compose} from "redux";
+import WithRouter from "../../hoc/WithRouter";
 
 
 class ProfileContainer extends React.Component {
@@ -19,6 +19,7 @@ class ProfileContainer extends React.Component {
         }
         if (userId) {
             this.props.getProfile(userId)
+            this.props.getStatus(userId)
         }
     }
 
@@ -33,17 +34,6 @@ class ProfileContainer extends React.Component {
     }
 }
 
-function withRouter(Component) {
-    return function ComponentWithRouterProp(props) {
-        let location = useLocation();
-        let navigate = useNavigate();
-        let params = useParams();
-        return (<Component
-                {...props}
-                router={{location, navigate, params}}
-            />);
-    }
-}
 
 let mapStateToProps = (state) => {
     return {
@@ -52,8 +42,13 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, {pushPost, updateTextareaPost, getProfile,}),
-    withRouter,
+    connect(mapStateToProps, {
+        pushPost,
+        updateTextareaPost,
+        getProfile,
+        getStatus,
+    }),
+    WithRouter,
     WithAuthRedirect,
-    )(ProfileContainer);
+)(ProfileContainer);
 

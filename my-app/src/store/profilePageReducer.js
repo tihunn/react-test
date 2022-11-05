@@ -14,6 +14,7 @@ let initialState = {
             small: null
         }
     },
+    status: "enter your text",
 };
 
 export let profilePageReducer = (state = initialState, action) => {
@@ -22,9 +23,9 @@ export let profilePageReducer = (state = initialState, action) => {
             let body = state.textareaPost;
             return {
                 ...state,
-                postData: [...state.postData, {id: 3, post: body, likes: 0} ],
+                postData: [...state.postData, {id: 3, post: body, likes: 0}],
                 textareaPost: "",
-        };
+            };
         case "updateTextareaPost":
             return {
                 ...state,
@@ -35,6 +36,11 @@ export let profilePageReducer = (state = initialState, action) => {
                 ...state,
                 profileData: action.profile
             };
+        case "setStatus":
+            return {
+                ...state,
+                status: action.status ? action.status : "-"
+            };
     }
     return state;
 };
@@ -42,11 +48,30 @@ export let profilePageReducer = (state = initialState, action) => {
 export const updateTextareaPost = (enteredText) => ({type: "updateTextareaPost", enteredText: enteredText});
 export const pushPost = () => ({type: "newPostPush"});
 const setProfile = (profile) => ({type: "setProfile", profile: profile});
+export const setStatus = (status) => ({type: "setStatus", status: status});
 
 export const getProfile = (userId) => (dispatch) => {
-    dispatch( toggleIsFetching(true) );
+    dispatch(toggleIsFetching(true));
     profileAPI.getProfile(userId).then(data => {
-        dispatch( toggleIsFetching(false) );
-        dispatch( setProfile(data) );
+        dispatch(toggleIsFetching(false));
+        dispatch(setProfile(data));
+    })
+}
+
+export const getStatus = (userId) => (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    profileAPI.getStatus(userId).then(data => {
+        dispatch(toggleIsFetching(false));
+        dispatch(setStatus(data));
+    })
+}
+
+export const updateStatus = (status) => (dispatch) => {
+    dispatch(toggleIsFetching(true));
+    profileAPI.updateStatus(status).then(response => {
+        dispatch(toggleIsFetching(false));
+        if (response.data.resultCode === 0) {
+            dispatch(setStatus(status))
+        }
     })
 }
