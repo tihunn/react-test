@@ -1,7 +1,7 @@
 import React from "react";
-import Like from "../../../common/like.png";
+import Like from "../../../../common/like.png";
 import css from "./Post.module.css";
-import ava from "../../../common/defaultAva.png";
+import ava from "../../../../common/defaultAva.png";
 
 export default function Post(props) {
     return <div className={css.post}>

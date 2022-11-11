@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import Login from "./Login";
+import LoginButton from "./LoginButton";
 
 
 let mapStateToProps = (state) => {
@@ -9,4 +9,4 @@ let mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {})(Login)
+export default connect(mapStateToProps, {})(LoginButton)

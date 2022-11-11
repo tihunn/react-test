@@ -1,9 +1,9 @@
 import React from "react";
-import {addMessage, onMessageChange} from "../../../store/dialogsPageReducer";
+import {addMessage} from "../../../store/dialogsPageReducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {compose} from "redux";
-import WithAuthRedirect from "../../hoc/WithAuthRedirect";
+import WithAuthRedirect from "../../Auth/WithAuthRedirect/WithAuthRedirect";
 
 let mapStateToProps = (state) => {
     return {
@@ -12,6 +12,6 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, {addMessage, onMessageChange}),
+    connect(mapStateToProps, {addMessage}),
     WithAuthRedirect,
 )(Dialogs)

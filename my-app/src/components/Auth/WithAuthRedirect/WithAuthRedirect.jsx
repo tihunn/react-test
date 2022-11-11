@@ -11,7 +11,7 @@ let redirectMapStateToProps = (state) => {
 
 const WithAuthRedirect = (Component) => {
     const Auth = (props) => {
-            if (!props.isAuth) return <Navigate to={"/login"}/>
+            if (!props.isAuth) return <Navigate to={"/auth/login"}/>
             return <Component {...props}/>
         }
     return connect(redirectMapStateToProps)(Auth);

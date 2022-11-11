@@ -46,5 +46,15 @@ export const authAPI = {
     },
     getAvaAndName(userId) {
         return instance.get(`profile/${userId}`)
+    },
+    postLogin(login) {
+        return instance.post("auth/login", {...login}).then(response => {
+            return response.data
+        })
+    },
+    logOut() {
+        return instance.delete("auth/login").then(response => {
+            return response.data
+        })
     }
 }

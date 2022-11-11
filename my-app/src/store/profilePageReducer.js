@@ -6,7 +6,6 @@ let initialState = {
         {id: 1, post: "it's new post", likes: 7},
         {id: 2, post: "this is Sparta!", likes: 0},
     ],
-    textareaPost: "Entered text new post",
     profileData: {
         contacts: {},
         photos: {
@@ -20,10 +19,9 @@ let initialState = {
 export let profilePageReducer = (state = initialState, action) => {
     switch (action.type) {
         case "newPostPush":
-            let body = state.textareaPost;
             return {
                 ...state,
-                postData: [...state.postData, {id: 3, post: body, likes: 0}],
+                postData: [...state.postData, {id: 3, post: action.textNewPost, likes: 0}],
                 textareaPost: "",
             };
         case "updateTextareaPost":
@@ -46,11 +44,11 @@ export let profilePageReducer = (state = initialState, action) => {
 };
 
 export const updateTextareaPost = (enteredText) => ({type: "updateTextareaPost", enteredText: enteredText});
-export const pushPost = () => ({type: "newPostPush"});
+export const pushPost = (textNewPost) => ({type: "newPostPush", textNewPost: textNewPost});
 const setProfile = (profile) => ({type: "setProfile", profile: profile});
 export const setStatus = (status) => ({type: "setStatus", status: status});
 
-export const getProfile = (userId) => (dispatch) => {
+export const requestProfile = (userId) => (dispatch) => {
     dispatch(toggleIsFetching(true));
     profileAPI.getProfile(userId).then(data => {
         dispatch(toggleIsFetching(false));
@@ -58,7 +56,7 @@ export const getProfile = (userId) => (dispatch) => {
     })
 }
 
-export const getStatus = (userId) => (dispatch) => {
+export const requestStatus = (userId) => (dispatch) => {
     dispatch(toggleIsFetching(true));
     profileAPI.getStatus(userId).then(data => {
         dispatch(toggleIsFetching(false));

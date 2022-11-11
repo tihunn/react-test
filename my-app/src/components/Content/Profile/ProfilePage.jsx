@@ -1,9 +1,9 @@
 import React from "react";
 import ava from "../../common/defaultAva.png";
 import css from "./Profile.module.css";
-import StatusContainer from "./StatusContainer";
+import StatusContainer from "./Status/StatusContainer";
 
-export default function Profile(props) {
+export default function ProfilePage(props) {
 
     return <div className={css.profile} >
         <div >
@@ -13,9 +13,9 @@ export default function Profile(props) {
         <div >
 
             <h1> {props.profileData.fullName} </h1>
-            <StatusContainer/>
-            {props.profileData.aboutMe} <br/>
-            {props.profileData.contacts.vk} <br/>
+            Статус: <StatusContainer/> <br/>
+            Обо мне: {props.profileData.aboutMe} <br/>
+            Vk: {props.profileData.contacts.vk} <br/>
             Работа: {props.profileData.lookingForAJobDescription}
                 </div>
 

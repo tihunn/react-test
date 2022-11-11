@@ -13,7 +13,6 @@ export default class Status extends React.Component {
         this.setState( {editMode: !this.state.editMode})
     }
     deactivateEditMode = (e) => {
-        debugger
         this.setState( {editMode: false});
         this.props.updateStatus(e.currentTarget.value)
     }
@@ -22,10 +21,10 @@ export default class Status extends React.Component {
     }
 
     render() {
-        return <div>
+        return <>
             {this.state.editMode ?
                 <input autoFocus={true} onBlur={this.deactivateEditMode} value={this.props.status} onChange={this.onChange}/> :
                 <span onClick={this.toggleEditMode}> {this.props.status} </span> }
-        </div>
+        </>
     }
 }

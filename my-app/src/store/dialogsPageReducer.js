@@ -8,24 +8,19 @@ let initialState = {
         {id: 2, name: "Masha"},
         {id: 3, name: "Viktor"},
         {id: 4, name: "Vika"},
-    ], newTextMessage: 'here something',
+    ],
 }
 
 export let dialogsPageReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "newMessagePush":
+        case "addMessage":
             return {
                 ...state,
                 messagesData: [...state.messagesData, {id: 4, message: action.newMessage}],
                 newTextMessage: "",
             }
-        case "onChange":
-            return {
-                ...state,
-                newTextMessage: action.enteredText,
-            }
     }
     return state
 }
-export const onMessageChange = (enteredText) => ({type: "onChange", enteredText: enteredText});
-export const addMessage = (enteredText) => ({type: "newMessagePush", newMessage: enteredText});
+
+export const addMessage = (enteredText) => ({type: "addMessage", newMessage: enteredText});
